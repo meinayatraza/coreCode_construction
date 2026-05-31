@@ -5,12 +5,152 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}CoreCode Construction{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block extra_css %}{% endblock %}
   </head>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Define your master color scheme variables here
+            brand: {
+              primary: "#2563eb", // Your main blue color
+              secondary: "#0ea5e9", // Accent/Light blue from mockups
+              dark: "#0f172a", // Dark slate text/backgrounds
+              light: "#f8fafc", // Light background gray
+            },
+          },
+          fontFamily: {
+            // Define your master font options
+            sans: ["Inter", "sans-serif"],
+            heading: ["Plus Jakarta Sans", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap"
+    rel="stylesheet"
+  />
   <body>
-    <header>
-      <h1>{% block header %}CoreCode Construction{% endblock %}</h1>
+    <header class="bg-white border-slate-200 sticky top-0 z-50 mt-4">
+      <!-- Changed container back to flex -->
+      <nav
+        class="max-w-7xl border-b px-8 py-4 mx-auto px-4 h-16 flex items-center justify-between relative animate-[floatUp_0.7s_cubic-bezier(.22,1,.36,1)_both]"
+      >
+        <!-- Left: Logo -->
+        <div class="font-bold text-xl text-blue-600">
+          <a href="{% url 'home' %}">
+            <img
+              src="{% static 'images/company_logo_main.png' %}"
+              alt="CoreCode Construction Logo"
+              title="CoreCode Construction"
+              class="h-20 w-auto"
+            />
+          </a>
+        </div>
+
+        <!-- Center: Home Link (Using absolute centering) -->
+        <div
+          class="absolute left-1/2 transform -translate-x-1/2 space-x-8 hidden md:flex"
+          id="navbar-menu"
+        >
+          <a
+            href="{% url 'home' %}"
+            id="nav-home"
+            class="text-sm font-body text-slate-600 hover:text-blue-600 transition"
+            >Home</a
+          >
+          <a
+            href="{% url 'home' %}"
+            id="nav-services"
+            class="text-sm font-body text-slate-600 hover:text-blue-600 transition"
+            >Services</a
+          >
+          <!-- Dropdown -->
+          <div class="relative group">
+            <a
+              id="nav-estimate"
+              class="text-sm font-body text-slate-500 hover:text-slate-800 cursor-pointer transition-colors flex items-center gap-1"
+            >
+              Estimate
+              <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M4 6l4 4 4-4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </a>
+            <div
+              class="absolute top-8 left-0 bg-white border border-slate-100 rounded-xl shadow-lg py-2 min-w-40 hidden group-hover:block z-10"
+            >
+              <a
+                class="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-blue-50 hover:text-blue-600 cursor-pointer"
+                >🧱 Bricks</a
+              >
+              <a
+                class="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-blue-50 hover:text-blue-600 cursor-pointer"
+                >💧 Cement</a
+              >
+              <a
+                class="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-blue-50 hover:text-blue-600 cursor-pointer"
+                >🪨 Sand</a
+              >
+              <a
+                class="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-blue-50 hover:text-blue-600 cursor-pointer"
+                >🪟 Aluminum</a
+              >
+              <a
+                class="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-blue-50 hover:text-blue-600 cursor-pointer"
+                >🚪 Cupboards</a
+              >
+            </div>
+          </div>
+
+          <a
+            href="{% url 'home' %}"
+            id="nav-contact"
+            class="text-sm font-body text-slate-600 hover:text-blue-600 transition"
+            >Contact Us</a
+          >
+        </div>
+
+        <!-- Right: Get Started Button (Pushed to the very wall) -->
+        <div class="flex items-center gap-3">
+          <button
+            class="text-sm font-medium text-slate-700 border border-slate-200 rounded-full px-5 py-2 hover:border-blue-300 hover:bg-blue-50 transition-all"
+          >
+            Login
+          </button>
+          <button
+            class="text-sm font-medium text-white bg-blue-600 rounded-full px-5 py-2 flex items-center gap-2 hover:bg-blue-700 transition-all hover:-translate-y-px"
+          >
+            Join for free
+            <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="7" stroke="white" stroke-width="1.5" />
+              <path
+                d="M6 8h4M8 6l2 2-2 2"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
     </header>
-    <main>{% block content %} <a href="#">Link</a> {% endblock %}</main>
+    <main>{% block content %} {% endblock %}</main>
+    {% block extra_js %}{% endblock %}
   </body>
 </html>
